@@ -24,6 +24,11 @@
     border-radius: 10px;
     border: none;
     font-weight: bold;
+    transition: all .5s;
+}
+
+.addPtnBtn:hover{
+    background-color: #580cc2;
 }
 
 .searchInputOfPatient {
@@ -52,6 +57,10 @@
     border-radius: 10px;
     border: none;
     font-weight: bold;
+    transition: all .5s;
+}
+.searchBtnOfPatient:hover{
+    background-color: #580cc2;
 }
 
 .searchInputOfPatient {
@@ -94,4 +103,16 @@
 
 .textareaofaddpatientdata{
     width: 100%;
+}
+
+.singlePatientDataModalBody span{
+    display: flex;
+    align-items: center;
+}
+
+.mainWordsinSPDMB{
+    font-weight: bold;
+    flex: 1;
+    margin-left: 10px;
+    text-align: right;
 }

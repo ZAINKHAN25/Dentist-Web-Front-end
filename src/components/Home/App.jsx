@@ -7,9 +7,12 @@ import patientsData from '../../dummyData.js';
 function App() {
     const [isSearchFocused, setIsSearchFocused] = useState(false);
 
+    let [cuurentSinglePatient, setcuurentSinglePatient] = useState([])
+
+
     function Singlepatientdata({ data }) {
         return (
-            <div className='singleData d-flex'>
+            <div onClick={() => { setcuurentSinglePatient(data) }} className='singleData d-flex' data-bs-toggle="modal" data-bs-target="#SinglePatient">
                 <p style={{ flex: 3 }}>{data.patientName}</p>
                 <p style={{ flex: 1 }}>{data.patientrupees}</p>
                 <p style={{ flex: 1 }}>{data.patientday}</p>
@@ -21,6 +24,9 @@ function App() {
 
     return (
         <div className="homePage">
+
+
+            {/* modal of Add data */}
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
@@ -52,6 +58,31 @@ function App() {
                     </div>
                 </div>
             </div>
+
+            {/* modal of single patient */}
+            <div className="modal fade" id="SinglePatient" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-3" id="staticBackdropLabel">{cuurentSinglePatient.patientName}'s data</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div className="modal-body singlePatientDataModalBody d-flex flex-column">
+                            <span>Patient Name: <span className='mainWordsinSPDMB'>{cuurentSinglePatient.patientName}</span></span>
+                            <span>Patient Money: <span className='mainWordsinSPDMB'>{cuurentSinglePatient.patientrupees}</span></span>
+                            <span>Patient Description: <span className='mainWordsinSPDMB'>{cuurentSinglePatient.patientdescription}</span></span>
+                            <span>Date: <span className='mainWordsinSPDMB'>{cuurentSinglePatient.patientmonth}/{cuurentSinglePatient.patientday}/{cuurentSinglePatient.patientyear}</span></span>
+                        </div>
+                        
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div className="homeWrapper">
                 <div className="headingArea d-flex align-items-center">
                     <h3 style={{ color: '#6f11f5' }}> All Patients</h3>
@@ -90,24 +121,24 @@ export default App;
 
 
 // <!-- Button trigger modal -->
-// <button type="button" className"btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+// <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 //   Launch static backdrop modal
 // </button>
 
 // <!-- Modal -->
-// <div className"modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-//   <div className"modal-dialog">
-//     <div className"modal-content">
-//       <div className"modal-header">
-//         <h1 className"modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-//         <button type="button" className"btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+// <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+//   <div className="modal-dialog">
+//     <div className="modal-content">
+//       <div className="modal-header">
+//         <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+//         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 //       </div>
-//       <div className"modal-body">
+//       <div className="modal-body">
 //         ...
 //       </div>
-//       <div className"modal-footer">
-//         <button type="button" className"btn btn-secondary" data-bs-dismiss="modal">Close</button>
-//         <button type="button" className"btn btn-primary">Understood</button>
+//       <div className="modal-footer">
+//         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+//         <button type="button" className="btn btn-primary">Understood</button>
 //       </div>
 //     </div>
 //   </div>
