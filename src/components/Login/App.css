@@ -1,4 +1,4 @@
-.signuppage {
+.loginpage {
     width: 100vw;
     overflow-x: hidden;
     min-height: 100vh;
@@ -7,7 +7,7 @@
     align-items: center;
 }
 
-.signupcard {
+.logincard {
     width: 700px;
     background-color: #eff3fd;
     padding: 50px 25px;
@@ -38,7 +38,7 @@
     background-color: #e2ddeb;
 }
 
-.signupcard button span {
+.logincard button span {
     margin-right: 10px;
 }
 
@@ -52,7 +52,7 @@
     background-color: #580cc2 !important;
 }
 
-.inputDivSignup {
+.inputDivlogin {
     width: 100%;
     display: flex;
     align-items: center;
@@ -62,24 +62,24 @@
     border-radius: 10px;
 }
 
-.inputDivSignup i {
+.inputDivlogin i {
     margin-right: 20px;
 }
 
-.inputDivSignup input[type="email"],
-.inputDivSignup input[type="text"],
-.inputDivSignup input[type="password"] {
+.inputDivlogin input[type="email"],
+.inputDivlogin input[type="text"],
+.inputDivlogin input[type="password"] {
     outline: none !important;
     border: none;
     flex: 1;
 }
 
-.inputDivSignup:focus-within {
+.inputDivlogin:focus-within {
     border: 1px solid gold;
 }
 
 
-.SignUpBtn button {
+.loginBtn button {
     width: 100%;
     border: none;
     color: #fff;
@@ -89,6 +89,6 @@
     transition: all .5s;
 }
 
-.SignUpBtn button:hover {
+.loginBtn button:hover {
     background-color: #580cc2;
 }

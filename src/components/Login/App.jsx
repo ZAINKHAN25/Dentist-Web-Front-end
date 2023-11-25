@@ -6,8 +6,8 @@ function App() {
 
     const navigateTo = useNavigate();
     return (
-        <div className='signuppage'>
-            <div className="signupcard">
+        <div className='loginpage'>
+            <div className="logincard">
                 <div className='signUpOrSignInDiv'>
                     <button className='acitvebtn'>
                         <span><i className="fa-solid fa-user"></i></span>
@@ -18,11 +18,11 @@ function App() {
                         <span>Sign Up</span>
                     </button>
                 </div>
-                <div className='inputDivSignup UserNameInputDiv'>
+                <div className='inputDivlogin UserNameInputDiv'>
                     <i className="fa-regular fa-circle-user"></i>
                     <input placeholder='Username' type="text" />
                 </div>
-                <div className='inputDivSignup PassworInputDiv'>
+                <div className='inputDivlogin PassworInputDiv'>
                     <i className="fa-solid fa-keyboard"></i>
                     <input placeholder='Password' type="password" />
                 </div>
@@ -33,7 +33,7 @@ function App() {
                     <input className="form-check-input me-1 ms-3" checked type="checkbox" value="" id="flexCheckDefault" />
                     <span>Remember Me</span>
                 </div>
-                <div className='SignUpBtn mt-2'>
+                <div className='loginBtn mt-2'>
                     <button><i class="fa-solid fa-right-to-bracket me-1"></i> Sign In</button>
                 </div>
             </div>
