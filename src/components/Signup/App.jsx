@@ -1,11 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import './App.css'
 
 function App() {
+    const navigateTo = useNavigate();
     return (
         <div className='signuppage'>
             <div className="signupcard">
                 <div className='signUpOrSignInDiv'>
-                    <button>
+                    <button onClick={()=> navigateTo('/login')}>
                         <span><i className="fa-solid fa-user"></i></span>
                         <span>Sign In</span>
                     </button>

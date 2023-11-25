@@ -1,6 +1,10 @@
-import './App.css'
+import './App.css';
+
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+
+    const navigateTo = useNavigate();
     return (
         <div className='signuppage'>
             <div className="signupcard">
@@ -9,7 +13,7 @@ function App() {
                         <span><i className="fa-solid fa-user"></i></span>
                         <span>Sign In</span>
                     </button>
-                    <button>
+                    <button onClick={()=> navigateTo('/signup')}>
                         <span><i className="fa-solid fa-user-plus"></i></span>
                         <span>Sign Up</span>
                     </button>
@@ -30,7 +34,7 @@ function App() {
                     <span>Remember Me</span>
                 </div>
                 <div className='SignUpBtn mt-2'>
-                    <button><i className="fa-solid fa-user-plus me-1"></i> Sign up</button>
+                    <button><i class="fa-solid fa-right-to-bracket me-1"></i> Sign In</button>
                 </div>
             </div>
         </div>
