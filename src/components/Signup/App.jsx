@@ -31,7 +31,7 @@ function App() {
                     <input placeholder='Confirm Password' type="password" />
                 </div>
                 <div className='AccepteTermsDiv ps-5 my-3'>
-                    Accept <span style={{color: '#6f11f5', cursor: 'pointer'}}>Terms & Conditions</span>
+                    Accept <span style={{color: '#6f11f5', cursor: 'pointer', textDecoration: 'underline'}}>Terms & Conditions</span>
                 </div>
                 <div className='SignUpBtn mt-2'>
                     <button><i class="fa-solid fa-user-plus me-1"></i> Sign up</button>
