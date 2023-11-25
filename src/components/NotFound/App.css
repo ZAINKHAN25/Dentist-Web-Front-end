@@ -14,7 +14,7 @@
     flex-direction: column;
 }
 
-h1 {
+.h1 {
     color: #6f11f5;
     font-size: 120px;
 }
@@ -23,7 +23,7 @@ h1 {
     margin-top: 5px;
 }
 
-button {
+.btnofnotfound {
     border: none;
     padding: 15px 20px;
     border-radius: 15px;
@@ -33,7 +33,7 @@ button {
     transition: all .5s;
 }
 
-button:hover{
+.btnofnotfound:hover{
     background-color: #580cc2;
 }
 
