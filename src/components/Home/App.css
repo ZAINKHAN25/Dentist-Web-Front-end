@@ -1,0 +1,97 @@
+.homePage {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.homeWrapper {
+    display: flex;
+    justify-content: start;
+    padding: 20px 5%;
+    align-items: center;
+    flex-direction: column;
+}
+
+.headingArea {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.addPtnBtn {
+    background-color: #6f11f5;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+}
+
+.searchInputOfPatient {
+    flex: 1;
+    padding: 10px;
+}
+
+.searchDiv {
+    width: 100%;
+    margin-top: 50px;
+    padding-left: 20px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+.searchDiv.focused {
+    border: 2px solid gold;
+}
+
+
+.searchBtnOfPatient {
+    background-color: #6f11f5;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+}
+
+.searchInputOfPatient {
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+
+.allProducts{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.singleData{
+    transition: all .5s;
+}
+
+.singleData:hover p {
+    color: #6f11f5;
+    text-decoration: underline;
+}
+
+
+.add-patientData-body div{
+    flex-direction: column;
+    margin: 20px auto;
+}
+
+.add-patientData-body div input{
+    padding: 5px 20px;
+}
+
+.divofpatientdescription{
+    width: 100%;
+}
+
+.textareaofaddpatientdata{
+    width: 100%;
+}
