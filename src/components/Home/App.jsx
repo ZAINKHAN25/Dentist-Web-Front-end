@@ -1,14 +1,50 @@
-import React, { useState } from 'react';
+/* global $ */
+
+import React, { useEffect, useState } from 'react'
 import './App.css';
 
-import patientsData from '../../dummyData.js';
+// import patientsData from '../../dummyData.js';
+import axios from 'axios';
+import myApi from '../../myApi.js';
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
-    const [isSearchFocused, setIsSearchFocused] = useState(false);
 
-    let [cuurentSinglePatient, setcuurentSinglePatient] = useState([])
+    const navigateTo = useNavigate()
+    var loginLocalStorage = JSON.parse(localStorage.getItem('logintoken'));
 
+    let [patientsData, setpatientsData] = useState([])
+    let [cuurentSinglePatient, setcuurentSinglePatient] = useState([]);
+    let [patientsNameInput, setpatientsNameInput] = useState('')
+    let [patientdescriptionInput, setpatientdescriptionInput] = useState('')
+    let [patientrupeesInput, setpatientrupeesInput] = useState('')
+    let [searchInput, setsearchInput] = useState('')
+    let [isSearchFocused, setIsSearchFocused] = useState(false);
+    let [errTxt, seterrTxt] = useState();
+
+
+    useEffect(() => {
+        gettingdata();
+        if (!loginLocalStorage) {
+            navigateTo('login')
+        }
+
+    }, [])
+
+
+
+    async function gettingdata() {
+        try {
+            var res = await axios.post(`${myApi}ptnt-data`, { logintoken: loginLocalStorage })
+            var data = await res.data.data.allPatientData;
+
+            setpatientsData(data)
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     function Singlepatientdata({ data }) {
         return (
@@ -22,12 +58,63 @@ function App() {
         )
     }
 
+
+    async function addPatientData() {
+        const date = new Date();
+
+        if (patientsNameInput === "" || patientdescriptionInput === "" || patientrupeesInput === "") {
+            seterrTxt("Please fill out the form completely")
+            setTimeout(() => {
+                seterrTxt('')
+            }, 4000)
+        } else {
+            try {
+                var res = await axios.post(`${myApi}add-ptnt-data`, {
+                    patientName: patientsNameInput,
+                    patientdescription: patientdescriptionInput,
+                    patientrupees: patientrupeesInput,
+                    logintoken: loginLocalStorage,
+                    patientday: date.getDay(),
+                    patientmonth: date.getMonth(),
+                    patientyear: date.getFullYear(),
+                });
+
+                var resTwo = await res.data;
+                $('#staticBackdrop').modal('hide');
+                gettingdata()
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+    async function seacrhFoo() {
+        try {
+            if (searchInput === '') {
+                gettingdata();
+            }
+
+            var res = await axios.post(`${myApi}search-patient`, { logintoken: loginLocalStorage, search: searchInput });
+            var restwo = await res.data;
+
+            setpatientsData(restwo);
+        } catch (error) {
+            if (searchInput === '') {
+                gettingdata();
+            } else {
+                setpatientsData([]);
+            }
+        }
+    }
+
+
     return (
         <div className="homePage">
 
 
             {/* modal of Add data */}
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -37,30 +124,33 @@ function App() {
                         <div className="modal-body add-patientData-body">
                             <div className='patientNamediv d-flex justify-content-center'>
                                 <h4>Patient Name:</h4>
-                                <input className='form-control' placeholder='Please enter patient Name' type="text" />
+                                <input value={patientsNameInput} onChange={(e) => setpatientsNameInput(e.target.value)} className='form-control' placeholder='Please enter patient Name' type="text" />
                             </div>
                             <div className='patientrupeesdiv d-flex justify-content-center'>
                                 <h4>Patient Money</h4>
-                                <input className='form-control' placeholder='Please enter patient Money' type="text" />
+                                <input value={patientrupeesInput} onChange={(e) => setpatientrupeesInput(e.target.value)} className='form-control' placeholder='Please enter patient Money' type="number" />
                             </div>
                             <div className='patientdescriptiondiv d-flex justify-content-center'>
                                 <h4>Patient description:</h4>
-                                <div class="form-floating divofpatientdescription">
-                                    <textarea class="form-control textareaofaddpatientdata" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                    <label for="floatingTextarea">Patient Description</label>
+                                <div className="form-floating divofpatientdescription">
+                                    <textarea value={patientdescriptionInput} onChange={(e) => setpatientdescriptionInput(e.target.value)} className="form-control textareaofaddpatientdata" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label htmlFor="floatingTextarea">Patient Description</label>
                                 </div>
+                            </div>
+                            <div style={{ color: 'red' }}>
+                                {errTxt}
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Add Data</button>
+                            <button type="button" className="btn btn-primary" onClick={addPatientData}>Add Data</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* modal of single patient */}
-            <div className="modal fade" id="SinglePatient" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id="SinglePatient" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -74,7 +164,7 @@ function App() {
                             <span>Patient Description: <span className='mainWordsinSPDMB'>{cuurentSinglePatient.patientdescription}</span></span>
                             <span>Date: <span className='mainWordsinSPDMB'>{cuurentSinglePatient.patientmonth}/{cuurentSinglePatient.patientday}/{cuurentSinglePatient.patientyear}</span></span>
                         </div>
-                        
+
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -96,8 +186,16 @@ function App() {
                         placeholder="Search"
                         onFocus={() => setIsSearchFocused(true)}
                         onBlur={() => setIsSearchFocused(false)}
+                        onChange={(e) => setsearchInput(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                seacrhFoo();
+                            }
+                        }}
+                        value={searchInput}
                     />
-                    <button className='searchBtnOfPatient'><i className="fa-solid fa-magnifying-glass me-1"></i> Search</button>
+
+                    <button className='searchBtnOfPatient' onClick={seacrhFoo}><i className="fa-solid fa-magnifying-glass me-1"></i> Search</button>
                 </div>
 
                 <div className="allProducts my-4 px-4 py-3">
@@ -109,7 +207,7 @@ function App() {
                         <h5 style={{ flex: 1 }}>Year</h5>
                     </div>
                     {
-                        patientsData.map((x, i) => <Singlepatientdata key={i} data={x} />)
+                        !patientsData.length ? "No data!" : patientsData.map((x, i) => <Singlepatientdata key={i} data={x} />)
                     }
                 </div>
             </div>
@@ -118,28 +216,3 @@ function App() {
 }
 
 export default App;
-
-
-// <!-- Button trigger modal -->
-// <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-//   Launch static backdrop modal
-// </button>
-
-// <!-- Modal -->
-// <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-//   <div className="modal-dialog">
-//     <div className="modal-content">
-//       <div className="modal-header">
-//         <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-//         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-//       </div>
-//       <div className="modal-body">
-//         ...
-//       </div>
-//       <div className="modal-footer">
-//         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-//         <button type="button" className="btn btn-primary">Understood</button>
-//       </div>
-//     </div>
-//   </div>
-// </div>

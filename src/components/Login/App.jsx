@@ -14,9 +14,9 @@ function App() {
         try {
             var res = await axios.post(`${myApi}login`, { email: myemail, password: myPassword })
             const restwo = await res.data;
-            console.log(restwo);
 
             localStorage.setItem('logintoken', JSON.stringify(restwo.logintoken));
+            navigateTo('/')
         } catch (error) {
             console.log(error);
         }
