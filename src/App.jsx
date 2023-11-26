@@ -4,6 +4,7 @@ import './App.css'
 import Signup from './components/Signup/App.jsx'
 import Home from './components/Home/App.jsx'
 import Login from './components/Login/App.jsx'
+import Verifytoken from './components/Verifytoken/App.jsx'
 import NotFound from './components/NotFound/App.jsx'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="signup" element={<Signup/>}/>
         <Route path="login" element={<Login/>}/>
+        <Route path="verifytoken" element={<Verifytoken/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>

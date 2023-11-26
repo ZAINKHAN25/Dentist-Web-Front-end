@@ -6,7 +6,7 @@
 
 .homeWrapper {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     padding: 20px 5%;
     align-items: center;
     flex-direction: column;
