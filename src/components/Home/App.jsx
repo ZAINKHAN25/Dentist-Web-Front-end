@@ -91,15 +91,12 @@ function App() {
 
     async function seacrhFoo() {
         try {
-            if (searchInput === '') {
-                gettingdata();
-            }
 
-            var res = await axios.post(`${myApi}search-patient`, { logintoken: loginLocalStorage, search: searchInput });
-            var restwo = await res.data;
-
-            setpatientsData(restwo);
-        } catch (error) {
+                var res = await axios.post(`${myApi}search-patient`, { logintoken: loginLocalStorage, search: searchInput });
+                var restwo = await res.data.result;
+                setpatientsData(restwo);
+            } catch (error) {
+            console.log(error);
             if (searchInput === '') {
                 gettingdata();
             } else {

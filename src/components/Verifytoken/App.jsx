@@ -18,7 +18,7 @@ function App() {
             const tokensearch = params.get('token');
     
             try {
-                const res = await axios.post(`${myApi}verfiy-token`, { token: tokensearch });
+                const res = await axios.post(`${myApi}verfiy-token`, { logintoken: tokensearch });
                 const apiData = res.data;
     
                 // Check if the component is still mounted before updating state
