@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 function App() {
     let [myemail, setmyemail] = useState('')
+    let [txterr, settxterr] = useState('')
     let [myPassword, setmyPassword] = useState('')
 
 
@@ -19,6 +20,10 @@ function App() {
             navigateTo('/')
         } catch (error) {
             console.log(error);
+            settxterr("Invalid error or Password")
+            setTimeout(()=>{
+                settxterr()
+            }, 4000)
         }
     }
 
@@ -50,6 +55,9 @@ function App() {
                 <div className='my-3'>
                     <input className="form-check-input me-1 ms-3" type="checkbox" value="" id="flexCheckDefault" />
                     <span>Remember Me</span>
+                </div>
+                <div style={{color: 'red'}}>
+                    {txterr}
                 </div>
                 <div className='loginBtn mt-2' onClick={loginfoo}>
                     <button><i className="fa-solid fa-right-to-bracket me-1"></i> Sign In</button>

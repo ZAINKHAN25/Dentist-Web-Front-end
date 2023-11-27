@@ -92,10 +92,10 @@ function App() {
     async function seacrhFoo() {
         try {
 
-                var res = await axios.post(`${myApi}search-patient`, { logintoken: loginLocalStorage, search: searchInput });
-                var restwo = await res.data.result;
-                setpatientsData(restwo);
-            } catch (error) {
+            var res = await axios.post(`${myApi}search-patient`, { logintoken: loginLocalStorage, search: searchInput });
+            var restwo = await res.data.result;
+            setpatientsData(restwo);
+        } catch (error) {
             console.log(error);
             if (searchInput === '') {
                 gettingdata();
@@ -173,7 +173,13 @@ function App() {
             <div className="homeWrapper">
                 <div className="headingArea d-flex align-items-center">
                     <h3 style={{ color: '#6f11f5' }}> All Patients</h3>
-                    <button className='addPtnBtn' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Patient</button>
+                    <div>
+                        <button className='addPtnBtn' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Patient</button>
+                        <button className='searchBtnOfPatient ms-3' onClick={() => {
+                            localStorage.setItem('logintoken', JSON.stringify(""));
+                            navigateTo('/login')
+                        }}> Logout </button>
+                    </div>
                 </div>
 
                 <div className={`searchDiv d-flex ${isSearchFocused ? 'focused' : ''}`}>
@@ -193,6 +199,8 @@ function App() {
                     />
 
                     <button className='searchBtnOfPatient' onClick={seacrhFoo}><i className="fa-solid fa-magnifying-glass me-1"></i> Search</button>
+
+
                 </div>
 
                 <div className="allProducts my-4 px-4 py-3">
