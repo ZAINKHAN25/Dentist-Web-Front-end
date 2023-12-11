@@ -29,16 +29,20 @@ function App() {
             try {
                 const response = await axios.post(`${myApi}sign-up`, { username, password, email });
                 const responseData = await response.data;
-                console.log('Server ka response:', responseData);
                 setsuccesTxt("A email verification is just send to " + email + " and it will expiress in 1 hour")
                 setTimeout(() => {
                         setsuccesTxt('')
                 }, 4000)
             } catch (error) {
-                setErrTxt(error?.response?.data);
-                // setTimeout(() => {
-                //     setErrTxt('');
-                // }, 2000);
+                // console.log(error.response.status);
+                if(error?.response?.status === 401){
+                    setErrTxt("Ye email pehle se hi le li gai hai ap please kisi aur email se sign up karen");
+                } else{
+                    setErrTxt("Server is not responsing at a time please try again or check the code!");
+                }
+                setTimeout(() => {
+                    setErrTxt('');
+                }, 2000);
             }
         }
     }

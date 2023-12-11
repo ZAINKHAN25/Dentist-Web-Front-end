@@ -16,19 +16,23 @@ function App() {
         const fetchData = async () => {
             const params = new URLSearchParams(location.search);
             const tokensearch = params.get('token');
+            console.log(tokensearch, "Token wala data");
     
             try {
                 const res = await axios.post(`${myApi}verfiy-token`, { logintoken: tokensearch });
-                const apiData = res.data;
+                const apiData = res?.data;
+                console.log(apiData);
     
                 // Check if the component is still mounted before updating state
                 if (isMounted) {
                     console.log(res.status, "res status");
                     if (res.status === 200) {
                         setSuccessTxt('Your account has been successfully completed');
+                        setErrTxt('');
                         // console.log('Your account has been successfully completed');
                     } else if (res.status === 401) {
                         setErrTxt(apiData || 'Account already has been made');
+                        setSuccessTxt('');
                         // console.log('Account already has been made');
                     }
                 }
